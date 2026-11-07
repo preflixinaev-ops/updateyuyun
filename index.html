@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#11111b"><title>Voice Studio — Free TTS</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0b13;--panel:#171725;--line:#303044;--muted:#a5a5ba;--text:#f7f5ff;--purple:#9b7bff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#282044 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:900px;margin:auto;padding:22px 15px 55px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}.brand{display:flex;align-items:center;gap:10px;font-weight:850}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#b39aff,#704ce2);display:grid;place-items:center;font-size:23px}.pill{border:1px solid #3d3659;color:#cbbcff;background:#201b31;border-radius:99px;padding:6px 11px;font-size:12px}h1{font-size:clamp(30px,6vw,43px);line-height:1.08;margin:0 0 8px;letter-spacing:-1px}.sub{color:var(--muted);margin:0 0 22px}.panel{background:linear-gradient(180deg,#191927,#13131e);border:1px solid var(--line);border-radius:19px;padding:19px;margin:15px 0}.heading{font-weight:750;margin:0 0 14px;display:flex;align-items:center;gap:9px}.num{width:25px;height:25px;border-radius:8px;background:#30264d;color:#c8b8ff;display:grid;place-items:center;font-size:12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.full{grid-column:1/-1}label{display:block;color:#d8d5e7;font-size:13px;font-weight:650;margin:0 0 7px}select,textarea,input{width:100%;border:1px solid #39394d;border-radius:12px;background:#10101a;color:var(--text);padding:13px 14px;font:inherit;outline:none}select:focus,textarea:focus{border-color:var(--purple)}textarea{min-height:210px;resize:vertical;line-height:1.65}textarea::placeholder{color:#77778d}.hint,.small{font-size:12px;color:var(--muted);margin-top:7px}.gender{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gender button,.vibe{border:1px solid #39394d;background:#11111c;color:#dedbea;border-radius:12px;padding:12px;cursor:pointer;font:inherit}.gender button.active,.vibe.active{border-color:var(--purple);background:#2b2242;color:white}.gender span{display:block;font-size:12px;color:var(--muted)}.vibes{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.vibe{font-size:13px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:13px;padding:13px 17px;font:700 14px system-ui;cursor:pointer}.primary{background:linear-gradient(110deg,#a78bfa,#7654e8);color:white;flex:1;min-height:49px}.secondary{background:#262638;color:#e8e5f5;border:1px solid #3b3b51}.download{background:linear-gradient(110deg,#28b982,#16966a);color:#041d14;width:100%;min-height:48px}.btn:disabled{opacity:.5}.status{display:none;margin-top:13px;padding:12px 14px;border-radius:11px;font-size:13px}.status.show{display:block}.info{background:#25203a;color:#d4c8ff}.error{background:#3a1e29;color:#ffb4c0}.success{background:#163328;color:#a5f0ce}.progress{height:5px;background:#2c2b3c;border-radius:10px;overflow:hidden;margin-top:12px;display:none}.progress.show{display:block}.bar{height:100%;width:0;background:linear-gradient(90deg,#9b7bff,#5bd6a1);transition:width .25s}.result{display:none}.result.show{display:block}.result audio{width:100%;margin:10px 0}.note{background:#211e2e;border:1px solid #494064;padding:12px;border-radius:12px;color:#d1c8e9;font-size:12px}.footer{text-align:center;color:#77778d;font-size:12px;margin-top:25px}@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:16px}.vibes{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div class="brand"><div class="logo">♫</div><div>VOICE STUDIO <span style="color:#b69dff">FREE</span></div></div><div class="pill">NO API KEY</div></header>
+<h1>Teks jadi <span style="color:#b69dff">suara.</span></h1><p class="sub">Generate suara AI gratis dan unduh hasilnya sebagai MP3.</p>
+<section class="panel"><h2 class="heading"><span class="num">01</span> Pengaturan suara</h2><div class="grid">
+<div><label for="language">Bahasa</label><select id="language"><option value="id" selected>🇮🇩 Bahasa Indonesia</option><option value="en">🇺🇸 English</option><option value="ms">🇲🇾 Melayu</option><option value="ja">🇯🇵 Jepang</option><option value="ko">🇰🇷 Korea</option></select></div>
+<div><label for="model">Mesin suara gratis</label><select id="model"><option value="piper" selected>Piper — ringan & cepat</option><option value="vits">VITS</option><option value="melotts">MeloTTS</option></select></div>
+<div class="full"><label>Jenis suara</label><div class="gender"><button type="button" class="active" data-gender="male">♂ Pria<span>Suara pria</span></button><button type="button" data-gender="female">♀ Wanita<span>Suara wanita</span></button></div></div>
+<div><label for="voice">Karakter suara</label><select id="voice"><option value="">Memuat daftar suara…</option></select><div class="hint">Pilih suara yang tersedia untuk model dan bahasa di atas.</div></div>
+<div><label for="speed">Kecepatan</label><select id="speed"><option value="0.85">Lambat</option><option value="1" selected>Normal</option><option value="1.15">Cepat</option></select></div>
+<div class="full"><label>Emosi / vibe</label><div class="vibes" id="vibes">
+<button class="vibe active" data-vibe="natural" type="button">🎙️ Natural</button><button class="vibe" data-vibe="ceria" type="button">😊 Ceria</button><button class="vibe" data-vibe="sedih" type="button">😢 Sedih</button><button class="vibe" data-vibe="dramatis" type="button">🎭 Dramatis</button><button class="vibe" data-vibe="puitis" type="button">🌹 Puitis</button><button class="vibe" data-vibe="tenang" type="button">🍃 Tenang</button>
+</div><div class="hint">Catatan: pilihan vibe adalah arahan gaya; efek emosi bergantung pada model suara gratis yang dipilih.</div></div>
+</div><div id="voiceStatus" class="status"></div></section>
+<section class="panel"><h2 class="heading"><span class="num">02</span> Tulis narasi</h2><label for="narration">Teks yang ingin diubah menjadi suara</label><textarea id="narration" placeholder="Tulis atau tempel narasi kamu di sini..."></textarea><div class="hint"><span id="count">0</span> karakter. Teks panjang akan diproses per bagian sesuai batas gratis layanan.</div>
+<div class="actions"><button class="btn secondary" id="clear">Hapus teks</button><button class="btn primary" id="generate">♫ GENERATE AUDIO GRATIS</button></div><div class="progress" id="progress"><div class="bar" id="bar"></div></div><div id="status" class="status"></div></section>
+<section class="panel result" id="result"><h2 class="heading"><span class="num">03</span> Hasil audio</h2><strong>Voice Studio — narasi.mp3</strong><audio id="player" controls></audio><button class="btn download" id="download">⬇ Download MP3 ke perangkat</button><p class="small">Di Android, file biasanya masuk ke folder Download.</p></section>
+<div class="note"><b>Gratis tanpa API Key:</b> layanan TTS.ai menyediakan kuota anonim hingga 5.000 karakter per hari per alamat IP, dengan batas 500 karakter per permintaan. Pemakaian bergantung pada ketersediaan layanan. <a href="https://tts.ai/api/" target="_blank" rel="noopener" style="color:#cbbcff">Dokumentasi layanan</a>.</div>
+<div class="footer">VOICE STUDIO FREE · MP3 DOWNLOAD</div></main>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);let gender='male',vibe='natural',voices=[],audioUrl=null,parts=[];
+function msg(el,s,t='info'){el.textContent=s;el.className='status show '+t}
+function model(){return $('model').value}function lang(){return $('language').value}
+async function loadVoices(){
+ const sel=$('voice');sel.innerHTML='<option value="">Memuat suara…</option>';
+ try{
+  const r=await fetch(`https://api.tts.ai/v1/voices/?model=${encodeURIComponent(model())}&language=${encodeURIComponent(lang())}&gender=${gender}`);
+  if(!r.ok)throw new Error('Daftar suara tidak dapat dimuat.');
+  const d=await r.json();voices=d.voices||[];
+  sel.innerHTML='';
+  if(!voices.length){sel.add(new Option('Suara tidak ditemukan — coba model lain',''));msg($('voiceStatus'),'Tidak ada suara yang cocok. Coba model atau bahasa lain.','error');return}
+  sel.add(new Option('Pilih karakter suara…',''));
+  voices.forEach(v=>sel.add(new Option(v.name||v.id,v.id)));
+  $('voiceStatus').className='status';
+ }catch(e){
+  sel.innerHTML='<option value="">Daftar suara gagal dimuat</option>';
+  msg($('voiceStatus'),'Tidak bisa memuat daftar suara. Periksa koneksi, atau layanan mungkin membatasi akses browser.','error');
+ }
+}
+document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{gender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('active',x===b));loadVoices()});
+$('model').onchange=loadVoices;$('language').onchange=loadVoices;
+document.querySelectorAll('[data-vibe]').forEach(b=>b.onclick=()=>{vibe=b.dataset.vibe;document.querySelectorAll('[data-vibe]').forEach(x=>x.classList.toggle('active',x===b))});
+$('narration').oninput=()=>$('count').textContent=$('narration').value.length.toLocaleString('id-ID');
+$('clear').onclick=()=>{$('narration').value='';$('count').textContent='0'};
+function splitText(text,max=500){
+ const out=[];let rest=text.trim();
+ while(rest.length>max){
+  let cut=Math.max(rest.lastIndexOf('. ',max),rest.lastIndexOf('! ',max),rest.lastIndexOf('? ',max),rest.lastIndexOf('\n',max),rest.lastIndexOf(' ',max));
+  if(cut<Math.floor(max*.55))cut=max;
+  out.push(rest.slice(0,cut).trim());rest=rest.slice(cut).trim();
+ }
+ if(rest)out.push(rest);return out;
+}
+async function waitResult(uuid){
+ for(let i=0;i<90;i++){
+  await new Promise(r=>setTimeout(r,1500));
+  const r=await fetch('https://api.tts.ai/v1/speech/results/?uuid='+encodeURIComponent(uuid));
+  const d=await r.json();
+  if(d.status==='completed'&&d.result_url)return d.result_url;
+  if(d.status==='failed')throw new Error(d.error||'Proses audio gagal di server.');
+ }
+ throw new Error('Proses terlalu lama. Silakan coba lagi.');
+}
+$('generate').onclick=async()=>{
+ const text=$('narration').value.trim(),voice=$('voice').value;
+ if(!text)return msg($('status'),'Tulis narasi terlebih dahulu.','error');
+ if(!voice)return msg($('status'),'Pilih karakter suara terlebih dahulu.','error');
+ const chunks=splitText(text,500);
+ if(text.length>5000)return msg($('status'),'Batas gratis anonim adalah 5.000 karakter per hari per IP. Narasi ini melebihi 5.000 karakter.','error');
+ const btn=$('generate');btn.disabled=true;$('result').classList.remove('show');$('progress').classList.add('show');$('bar').style.width='0%';parts=[];
+ try{
+  for(let i=0;i<chunks.length;i++){
+   msg($('status'),`Membuat audio bagian ${i+1} dari ${chunks.length}…`);
+   const payload={model:model(),text:chunks[i],voice,format:'mp3',language:lang(),speed:Number($('speed').value)};
+   const r=await fetch('https://api.tts.ai/v1/tts/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+   const d=await r.json();
+   if(!r.ok)throw new Error(d.detail||d.error||d.message||'Permintaan ditolak oleh layanan TTS.');
+   const uuid=d.uuid;if(!uuid)throw new Error(d.message||'Server tidak mengembalikan ID proses.');
+   const resultUrl=await waitResult(uuid);
+   const audio=await fetch(resultUrl);if(!audio.ok)throw new Error('File audio gagal diunduh dari server.');
+   parts.push(await audio.blob());$('bar').style.width=Math.round((i+1)/chunks.length*100)+'%';
+  }
+  const blob=new Blob(parts,{type:'audio/mpeg'});audioUrl=URL.createObjectURL(blob);$('player').src=audioUrl;$('result').classList.add('show');msg($('status'),'Selesai! Audio berhasil dibuat. Silakan dengarkan atau download MP3.','success');
+ }catch(e){msg($('status'),e.message+' Jika gagal terus, coba lagi beberapa saat.','error')}
+ finally{btn.disabled=false;setTimeout(()=>$('progress').classList.remove('show'),700)}
+};
+$('download').onclick=()=>{if(!audioUrl)return;const a=document.createElement('a');a.href=audioUrl;a.download='voice-studio-narasi.mp3';document.body.appendChild(a);a.click();a.remove()};
+loadVoices();
+})();
+</script></body></html>
