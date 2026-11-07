@@ -1,70 +1,336 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#11111b"><title>Voice Studio — Free TTS</title>
-<style>
-:root{color-scheme:dark;--bg:#0b0b13;--panel:#171725;--line:#303044;--muted:#a5a5ba;--text:#f7f5ff;--purple:#9b7bff}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#282044 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}.wrap{max-width:900px;margin:auto;padding:22px 15px 55px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}.brand{display:flex;align-items:center;gap:10px;font-weight:850}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#b39aff,#704ce2);display:grid;place-items:center;font-size:23px}.pill{border:1px solid #3d3659;color:#cbbcff;background:#201b31;border-radius:99px;padding:6px 11px;font-size:12px}h1{font-size:clamp(30px,6vw,43px);line-height:1.08;margin:0 0 8px;letter-spacing:-1px}.sub{color:var(--muted);margin:0 0 22px}.panel{background:linear-gradient(180deg,#191927,#13131e);border:1px solid var(--line);border-radius:19px;padding:19px;margin:15px 0}.heading{font-weight:750;margin:0 0 14px;display:flex;align-items:center;gap:9px}.num{width:25px;height:25px;border-radius:8px;background:#30264d;color:#c8b8ff;display:grid;place-items:center;font-size:12px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.full{grid-column:1/-1}label{display:block;color:#d8d5e7;font-size:13px;font-weight:650;margin:0 0 7px}select,textarea,input{width:100%;border:1px solid #39394d;border-radius:12px;background:#10101a;color:var(--text);padding:13px 14px;font:inherit;outline:none}select:focus,textarea:focus{border-color:var(--purple)}textarea{min-height:210px;resize:vertical;line-height:1.65}textarea::placeholder{color:#77778d}.hint,.small{font-size:12px;color:var(--muted);margin-top:7px}.gender{display:grid;grid-template-columns:1fr 1fr;gap:10px}.gender button,.vibe{border:1px solid #39394d;background:#11111c;color:#dedbea;border-radius:12px;padding:12px;cursor:pointer;font:inherit}.gender button.active,.vibe.active{border-color:var(--purple);background:#2b2242;color:white}.gender span{display:block;font-size:12px;color:var(--muted)}.vibes{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.vibe{font-size:13px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:13px;padding:13px 17px;font:700 14px system-ui;cursor:pointer}.primary{background:linear-gradient(110deg,#a78bfa,#7654e8);color:white;flex:1;min-height:49px}.secondary{background:#262638;color:#e8e5f5;border:1px solid #3b3b51}.download{background:linear-gradient(110deg,#28b982,#16966a);color:#041d14;width:100%;min-height:48px}.btn:disabled{opacity:.5}.status{display:none;margin-top:13px;padding:12px 14px;border-radius:11px;font-size:13px}.status.show{display:block}.info{background:#25203a;color:#d4c8ff}.error{background:#3a1e29;color:#ffb4c0}.success{background:#163328;color:#a5f0ce}.progress{height:5px;background:#2c2b3c;border-radius:10px;overflow:hidden;margin-top:12px;display:none}.progress.show{display:block}.bar{height:100%;width:0;background:linear-gradient(90deg,#9b7bff,#5bd6a1);transition:width .25s}.result{display:none}.result.show{display:block}.result audio{width:100%;margin:10px 0}.note{background:#211e2e;border:1px solid #494064;padding:12px;border-radius:12px;color:#d1c8e9;font-size:12px}.footer{text-align:center;color:#77778d;font-size:12px;margin-top:25px}@media(max-width:600px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.panel{padding:16px}.vibes{grid-template-columns:repeat(2,1fr)}}
-</style></head>
-<body><main class="wrap">
-<header class="top"><div class="brand"><div class="logo">♫</div><div>VOICE STUDIO <span style="color:#b69dff">FREE</span></div></div><div class="pill">NO API KEY</div></header>
-<h1>Teks jadi <span style="color:#b69dff">suara.</span></h1><p class="sub">Generate suara AI gratis dan unduh hasilnya sebagai MP3.</p>
-<section class="panel"><h2 class="heading"><span class="num">01</span> Pengaturan suara</h2><div class="grid">
-<div><label for="language">Bahasa</label><select id="language"><option value="id" selected>🇮🇩 Bahasa Indonesia</option><option value="en">🇺🇸 English</option><option value="ms">🇲🇾 Melayu</option><option value="ja">🇯🇵 Jepang</option><option value="ko">🇰🇷 Korea</option></select></div>
-<div><label for="model">Mesin suara gratis</label><select id="model"><option value="piper" selected>Piper — ringan & cepat</option><option value="vits">VITS</option><option value="melotts">MeloTTS</option></select></div>
-<div class="full"><label>Jenis suara</label><div class="gender"><button type="button" class="active" data-gender="male">♂ Pria<span>Suara pria</span></button><button type="button" data-gender="female">♀ Wanita<span>Suara wanita</span></button></div></div>
-<div><label for="voice">Karakter suara</label><select id="voice"><option value="">Memuat daftar suara…</option></select><div class="hint">Pilih suara yang tersedia untuk model dan bahasa di atas.</div></div>
-<div><label for="speed">Kecepatan</label><select id="speed"><option value="0.85">Lambat</option><option value="1" selected>Normal</option><option value="1.15">Cepat</option></select></div>
-<div class="full"><label>Emosi / vibe</label><div class="vibes" id="vibes">
-<button class="vibe active" data-vibe="natural" type="button">🎙️ Natural</button><button class="vibe" data-vibe="ceria" type="button">😊 Ceria</button><button class="vibe" data-vibe="sedih" type="button">😢 Sedih</button><button class="vibe" data-vibe="dramatis" type="button">🎭 Dramatis</button><button class="vibe" data-vibe="puitis" type="button">🌹 Puitis</button><button class="vibe" data-vibe="tenang" type="button">🍃 Tenang</button>
-</div><div class="hint">Catatan: pilihan vibe adalah arahan gaya; efek emosi bergantung pada model suara gratis yang dipilih.</div></div>
-</div><div id="voiceStatus" class="status"></div></section>
-<section class="panel"><h2 class="heading"><span class="num">02</span> Tulis narasi</h2><label for="narration">Teks yang ingin diubah menjadi suara</label><textarea id="narration" placeholder="Tulis atau tempel narasi kamu di sini..."></textarea><div class="hint"><span id="count">0</span> karakter. Teks panjang akan diproses per bagian sesuai batas gratis layanan.</div>
-<div class="actions"><button class="btn secondary" id="clear">Hapus teks</button><button class="btn primary" id="generate">♫ GENERATE AUDIO GRATIS</button></div><div class="progress" id="progress"><div class="bar" id="bar"></div></div><div id="status" class="status"></div></section>
-<section class="panel result" id="result"><h2 class="heading"><span class="num">03</span> Hasil audio</h2><strong>Voice Studio — narasi.mp3</strong><audio id="player" controls></audio><button class="btn download" id="download">⬇ Download MP3 ke perangkat</button><p class="small">Di Android, file biasanya masuk ke folder Download.</p></section>
-<div class="note"><b>Gratis tanpa API Key:</b> layanan TTS.ai menyediakan kuota anonim hingga 5.000 karakter per hari per alamat IP, dengan batas 500 karakter per permintaan. Pemakaian bergantung pada ketersediaan layanan. <a href="https://tts.ai/api/" target="_blank" rel="noopener" style="color:#cbbcff">Dokumentasi layanan</a>.</div>
-<div class="footer">VOICE STUDIO FREE · MP3 DOWNLOAD</div></main>
-<script>
-(()=>{
-const $=id=>document.getElementById(id);let gender='male',vibe='natural',voices=[],audioUrl=null,parts=[];
-function msg(el,s,t='info'){el.textContent=s;el.className='status show '+t}
-function model(){return $('model').value}function lang(){return $('language').value}
-async function loadVoices(){
- const sel=$('voice');sel.innerHTML='<option value="">Memuat suara…</option>';
- try{
-  const r=await fetch(`https://api.tts.ai/v1/voices/?model=${encodeURIComponent(model())}&language=${encodeURIComponent(lang())}&gender=${gender}`);
-  if(!r.ok)throw new Error('Daftar suara tidak dapat dimuat.');
-  const d=await r.json();voices=d.voices||[];
-  sel.innerHTML='';
-  if(!voices.length){sel.add(new Option('Suara tidak ditemukan — coba model lain',''));msg($('voiceStatus'),'Tidak ada suara yang cocok. Coba model atau bahasa lain.','error');return}
-  sel.add(new Option('Pilih karakter suara…',''));
-  voices.forEach(v=>sel.add(new Option(v.name||v.id,v.id)));
-  $('voiceStatus').className='status';
- }catch(e){
-  sel.innerHTML='<option value="">Daftar suara gagal dimuat</option>';
-  msg($('voiceStatus'),'Tidak bisa memuat daftar suara. Periksa koneksi, atau layanan mungkin membatasi akses browser.','error');
- }
-}
-document.querySelectorAll('[data-gender]').forEach(b=>b.onclick=()=>{gender=b.dataset.gender;document.querySelectorAll('[data-gender]').forEach(x=>x.classList.toggle('active',x===b));loadVoices()});
-$('model').onchange=loadVoices;$('language').onchange=loadVoices;
-document.querySelectorAll('[data-vibe]').forEach(b=>b.onclick=()=>{vibe=b.dataset.vibe;document.querySelectorAll('[data-vibe]').forEach(x=>x.classList.toggle('active',x===b))});
-$('narration').oninput=()=>$('count').textContent=$('narration').value.length.toLocaleString('id-ID');
-$('clear').onclick=()=>{$('narration').value='';$('count').textContent='0'};
-function splitText(text,max=500){
- const out=[];let rest=text.trim();
- while(rest.length>max){
-  let cut=Math.max(rest.lastIndexOf('. ',max),rest.lastIndexOf('! ',max),rest.lastIndexOf('? ',max),rest.lastIndexOf('\n',max),rest.lastIndexOf(' ',max));
-  if(cut<Math.floor(max*.55))cut=max;
-  out.push(rest.slice(0,cut).trim());rest=rest.slice(cut).trim();
- }
- if(rest)out.push(rest);return out;
-}
-async function waitResult(uuid){
- for(let i=0;i<90;i++){
-  await new Promise(r=>setTimeout(r,1500));
-  const r=await fetch('https://api.tts.ai/v1/speech/results/?uuid='+encodeURIComponent(uuid));
-  const d=await r.json();
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generator Voiceover & Logat Indonesia</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Visualizer Wave Animation */
+        .bar {
+            transition: height 0.1s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                    <i class="fa-solid fa-microphone-lines text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg leading-tight text-slate-900">SuaraNusantara AI</h1>
+                    <p class="text-xs text-slate-500 font-medium">Generator Narasi & Logat Indonesia Pro</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Gemini TTS Active
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-grow">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Column: Controls & Text Input -->
+            <div class="lg:col-span-7 flex flex-col gap-6">
+                
+                <!-- Card Input Narasi -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 flex flex-col gap-4">
+                    <div class="flex items-center justify-between">
+                        <label for="textInput" class="font-bold text-slate-900 flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-pen-nib text-brand-600"></i> Naskah / Teks Narasi
+                        </label>
+                        <span id="charCounter" class="text-xs font-medium text-slate-400 bg-slate-100 px-2.5 py-1 rounded-full">0 Karakter</span>
+                    </div>
+                    <div class="relative">
+                        <textarea id="textInput" rows="7" 
+                            class="w-full p-4 text-slate-700 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition text-sm leading-relaxed resize-y" 
+                            placeholder="Tuliskan naskah narasi di sini dalam Bahasa Indonesia... (Tidak ada batasan karakter. Contoh: Halo semuanya! Selamat datang di petualangan seru kita hari ini!)"></textarea>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-slate-500">
+                        <span><i class="fa-solid fa-circle-info text-brand-500 mr-1"></i> Gemini AI akan menganalisa emosi & ekspresi dari teks Anda.</span>
+                        <button id="btnClear" class="hover:text-red-600 transition font-medium text-slate-400"><i class="fa-solid fa-trash-can mr-1"></i> Bersihkan</button>
+                    </div>
+                </div>
+
+                <!-- Card Pengaturan Suara & Vibe -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 flex flex-col gap-5">
+                    <h2 class="font-bold text-slate-900 flex items-center gap-2 text-base border-b border-slate-100 pb-3">
+                        <i class="fa-solid fa-sliders text-brand-600"></i> Pengaturan Karakter & Ekspresi
+                    </h2>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        
+                        <!-- Pilihan Karakter / Suara -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Karakter Suara</label>
+                            <div class="relative">
+                                <select id="voiceSelect" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none appearance-none cursor-pointer">
+                                    <optgroup label="Suara Wanita">
+                                        <option value="Kore" selected>Kore - Wanita (Ramah & Hangat)</option>
+                                        <option value="Aoede">Aoede - Wanita (Ceria & Nyaring)</option>
+                                        <option value="Leda">Leda - Wanita (Muda & Energik)</option>
+                                        <option value="Callirrhoe">Callirrhoe - Wanita (Lembut & Puitis)</option>
+                                    </optgroup>
+                                    <optgroup label="Suara Pria">
+                                        <option value="Puck">Puck - Pria (Ceria & Santai)</option>
+                                        <option value="Fenrir">Fenrir - Pria (Bersemangat & Antusias)</option>
+                                        <option value="Charon">Charon - Pria (Wibawa & Dalam)</option>
+                                        <option value="Orus">Orus - Pria (Tegas & Formal)</option>
+                                    </optgroup>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pilihan Vibe / Mood -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Vibe / Ekspresi Suara</label>
+                            <div class="relative">
+                                <select id="vibeSelect" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none appearance-none cursor-pointer">
+                                    <option value="ceria">😃 Ceria & Gembira</option>
+                                    <option value="sedih">😢 Sedih & Haru</option>
+                                    <option value="puitis">📜 Puitis & Mendalam</option>
+                                    <option value="misterius">🕵️ Suara Misterius & Horor</option>
+                                    <option value="santai">☕ Santai & Kasual (Dialek Logat Indonesia)</option>
+                                    <option value="resmi">🎙️ Berita / Formal Resmi</option>
+                                    <option value="dramatis">🎭 Dramatis & Penuh Penekanan</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-slate-400">
+                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Speed & Tempo Sliders -->
+                    <div class="pt-2 border-t border-slate-100 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        
+                        <!-- Tempo Kecepatan -->
+                        <div>
+                            <div class="flex justify-between items-center mb-1.5">
+                                <label class="text-xs font-bold text-slate-700 uppercase tracking-wider">Kecepatan Tempo</label>
+                                <span id="speedVal" class="text-xs font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded">Normal (1.0x)</span>
+                            </div>
+                            <input type="range" id="speedSlider" min="0.7" max="1.5" step="0.1" value="1.0" class="w-full accent-brand-600 cursor-pointer">
+                            <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-medium">
+                                <span>Lambat</span>
+                                <span>Normal</span>
+                                <span>Cepat</span>
+                            </div>
+                        </div>
+
+                        <!-- Logat & Dialek Style Focus -->
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Gaya Logat Nusantara</label>
+                            <div class="relative">
+                                <select id="accentSelect" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none cursor-pointer">
+                                    <option value="standar" selected>Standard Indonesian (Formal/Nasional)</option>
+                                    <option value="jakarta">Jakarta / Gaul (Lu-Gua & Santai)</option>
+                                    <option value="jawa">Jawa Neutral (Halus & Medok Tipis)</option>
+                                    <option value="medan">Medan / Batak (Tegas & Bergelombang)</option>
+                                    <option value="timur">Indonesia Timur (Merdu & Berirama)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Button Submit -->
+                    <button id="btnGenerate" class="w-full mt-2 py-4 px-6 bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-brand-500/25 active:scale-[0.99] transition flex items-center justify-center gap-3 text-base">
+                        <i class="fa-solid fa-wand-magic-sparkles text-lg"></i>
+                        <span>Generasi Audio Logat Indonesia</span>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Player & Audio Result -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                
+                <!-- Player Box -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 flex flex-col gap-6 sticky top-24">
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                        <h2 class="font-bold text-slate-900 flex items-center gap-2 text-base">
+                            <i class="fa-solid fa-compact-disc text-brand-600"></i> Output Audio .WAV
+                        </h2>
+                        <span id="statusBadge" class="text-xs px-2.5 py-1 rounded-full font-medium bg-slate-100 text-slate-500">
+                            Siap
+                        </span>
+                    </div>
+
+                    <!-- Visualizer / Placeholder Display -->
+                    <div class="relative bg-slate-900 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[200px] overflow-hidden shadow-inner">
+                        <!-- Background Decorative Glow -->
+                        <div class="absolute -top-12 -left-12 w-32 h-32 bg-brand-500/30 rounded-full blur-2xl"></div>
+                        <div class="absolute -bottom-12 -right-12 w-32 h-32 bg-indigo-500/30 rounded-full blur-2xl"></div>
+                        
+                        <!-- Animated Bars -->
+                        <div id="visualizer" class="flex items-center justify-center gap-1.5 h-16 w-full z-10 my-4">
+                            <div class="bar w-2 bg-slate-700 rounded-full h-3"></div>
+                            <div class="bar w-2 bg-slate-700 rounded-full h-5"></div>
+                            <div class="bar w-2 bg-slate-700 rounded-full h-8"></div>
+                            <div class="bar w-2 bg-slate-700 rounded-full h-12"></div>
+                            <div class="bar w-2 bg-slate-700 rounded-full h-6"></div>
+                            <div class="bar w-2 bg-slate-700 rounded-full h-10"></div>
+                            <div class="bar w-2 bg-slate-700 rounded-full h-4"></div>
+                        </div>
+
+                        <p id="audioInfoText" class="text-xs text-slate-400 z-10 font-medium text-center">
+                            Klik "Generasi Audio" untuk membuat suara
+                        </p>
+
+                        <!-- Loading Spinner Overlay -->
+                        <div id="loadingOverlay" class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm z-20 hidden flex-col items-center justify-center gap-3">
+                            <div class="w-10 h-10 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
+                            <span class="text-xs font-semibold text-white tracking-wide">Menganalisa & Sintesis Suara...</span>
+                        </div>
+                    </div>
+
+                    <!-- Hidden HTML5 Audio Element -->
+                    <audio id="audioPlayer" class="hidden"></audio>
+
+                    <!-- Playback Controls -->
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center justify-between gap-4">
+                            <button id="btnPlay" disabled class="flex-1 py-3 px-4 bg-slate-100 text-slate-400 font-bold rounded-xl flex items-center justify-center gap-2 cursor-not-allowed transition hover:bg-slate-200">
+                                <i class="fa-solid fa-play text-sm"></i>
+                                <span>Putar Audio</span>
+                            </button>
+                            <a id="btnDownload" class="py-3 px-5 bg-slate-100 text-slate-400 font-bold rounded-xl flex items-center justify-center gap-2 cursor-not-allowed transition" download="suara-nusantara.wav">
+                                <i class="fa-solid fa-download text-sm"></i>
+                                <span>Download .WAV</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Metadata / Prompt Details -->
+                    <div id="metaDetails" class="hidden bg-slate-50 p-4 rounded-xl border border-slate-200/60 text-xs text-slate-600 space-y-2">
+                        <div class="flex justify-between">
+                            <span class="font-semibold text-slate-500">Karakter & Vibe:</span>
+                            <span id="metaVibe" class="font-bold text-slate-800">-</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-semibold text-slate-500">Format:</span>
+                            <span class="font-bold text-emerald-600">PCM 16-bit WAV Uncompressed</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-semibold text-slate-500">Sample Rate:</span>
+                            <span id="metaSampleRate" class="font-bold text-slate-800">24000 Hz</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4">
+            <p>© 2026 SuaraNusantara AI - Didukung oleh Teknologi Gemini API TTS</p>
+        </div>
+    </footer>
+
+    <!-- App JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Elements
+            const textInput = document.getElementById('textInput');
+            const charCounter = document.getElementById('charCounter');
+            const voiceSelect = document.getElementById('voiceSelect');
+            const vibeSelect = document.getElementById('vibeSelect');
+            const accentSelect = document.getElementById('accentSelect');
+            const speedSlider = document.getElementById('speedSlider');
+            const speedVal = document.getElementById('speedVal');
+            const btnClear = document.getElementById('btnClear');
+            const btnGenerate = document.getElementById('btnGenerate');
+            
+            const audioPlayer = document.getElementById('audioPlayer');
+            const btnPlay = document.getElementById('btnPlay');
+            const btnDownload = document.getElementById('btnDownload');
+            const statusBadge = document.getElementById('statusBadge');
+            const audioInfoText = document.getElementById('audioInfoText');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const metaDetails = document.getElementById('metaDetails');
+            const metaVibe = document.getElementById('metaVibe');
+            const metaSampleRate = document.getElementById('metaSampleRate');
+            const visualizerBars = document.querySelectorAll('#visualizer .bar');
+
+            let visualizerInterval = null;
+            let currentBlobUrl = null;
+
+            // Sample initial text
+            textInput.value = "Halo teman-teman Indonesia! Selamat datang. Aplikasi ini mengonversi naskah Anda menjadi suara narasi yang alami, indah, dan kaya ekspresi.";
+            updateCharCount();
+
+            // Text counter
+            textInput.addEventListener('input', updateCharCount);
+            function updateCharCount() {
+                const count = textInput.value.length;
+                charCounter.textContent = `${count} Karakter`;
+            }
+
+            btnClear.addEventListener('click', () => {
+                textInput.value = '';
+                updateCharCount();
+                textInput.focus();
+            }t d=await r.json();
   if(d.status==='completed'&&d.result_url)return d.result_url;
   if(d.status==='failed')throw new Error(d.error||'Proses audio gagal di server.');
  }
