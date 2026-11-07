@@ -91,7 +91,11 @@ footer b{color:var(--mint)}
 </header>
 
 <div class="card c1">
-  <input type="password" id="key" hidden>
+  <div class="field">
+    <label for="key">Gemini API Key</label>
+    <input type="password" id="key" placeholder="Tempel API key dari Google AI Studio" autocomplete="off">
+    <div class="note">Tersimpan hanya di browser kamu. Ambil gratis di aistudio.google.com/apikey</div>
+  </div>
   <div class="field">
     <label for="narasi">Kolom Narasi <span style="font-weight:400;color:#5f8070">(tanpa batas karakter)</span></label>
     <textarea id="narasi" placeholder="Tulis atau tempel narasi kamu di sini…"></textarea>
@@ -157,7 +161,6 @@ footer b{color:var(--mint)}
 <script>
 const $=id=>document.getElementById(id);
 const SR=24000;
-const DEFAULT_KEY="AQ.Ab8RN6LSbYebnkVcmPOs_iwwdDFMbH1r-SKnco5qzDS228Fvag";
 const VOICES={
   wanita:[["auto","Otomatis (sesuai vibe)"],["Kore","Kore – tegas"],["Aoede","Aoede – ringan"],["Leda","Leda – muda"],["Zephyr","Zephyr – cerah"],["Sulafat","Sulafat – hangat"],["Vindemiatrix","Vindemiatrix – lembut"]],
   pria:[["auto","Otomatis (sesuai vibe)"],["Charon","Charon – informatif"],["Puck","Puck – ceria"],["Fenrir","Fenrir – bersemangat"],["Orus","Orus – tegas"],["Algenib","Algenib – serak berat"],["Enceladus","Enceladus – berbisik"],["Umbriel","Umbriel – santai"]]
@@ -171,7 +174,7 @@ const VIBE={
 };
 let gender="wanita",abortFlag=false,url=null;
 
-$("key").value=DEFAULT_KEY;
+try{const k=localStorage.getItem("gk");if(k)$("key").value=k}catch(e){}
 function fillVoices(){$("voice").innerHTML=VOICES[gender].map(v=>`<option value="${v[0]}">${v[1]}</option>`).join("")}
 fillVoices();
 $("gender").onclick=e=>{const b=e.target.closest("button");if(!b)return;gender=b.dataset.g;[...$("gender").children].forEach(x=>x.classList.toggle("on",x===b));fillVoices()};
@@ -274,6 +277,7 @@ $("go").onclick=async()=>{
   const voice=$("voice").value==="auto"?AUTO[gender][vibe]:$("voice").value;
   const o={vibe,logat:$("logat").value,gender,voice,model:$("model").value};
   const speed=+$("speed").value;
+  try{localStorage.setItem("gk",key)}catch(e){}
   abortFlag=false;document.body.classList.add("busy");$("go").disabled=true;$("stop").style.display="block";$("out").style.display="none";$("notes").textContent="";
   try{
     const chunks=splitText(txt),parts=[],gap=new Float32Array(Math.round(SR*0.25));
